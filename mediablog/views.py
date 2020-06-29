@@ -56,14 +56,11 @@ def DetailPost(request,id):
 def react(request):
     # get user from request
     user = request.user
-    
-    print(request.body)
     # checking if it is an ajax request that was made
     if request.is_ajax:
         try:
             post_id = json.loads(request.body)['post_id']
             reaction_type = json.loads(request.body)['reactionType']
-           
         except KeyError:
             return JsonResponse({"error":"no post id provided in request"})
         
@@ -84,14 +81,15 @@ def react(request):
             # if user has already liked delete the reaction
             if reacted.reaction_type == reaction_type:
                 reacted.delete()
-                return JsonResponse({"status":"success", "action":"decrease"})
+                return JsonResponse({"status":"success", "action":{"decrease":reaction_type, "increase":None}})
             else:
+                prev_reaction = reacted.reaction_type
                 reacted.reaction_type = reaction_type
                 reacted.save()
-                return JsonResponse({"status":"success", "action":"switch"})
+                return JsonResponse({"status":"success", "action":{"increase":reaction_type ,"decrease":prev_reaction}})
         else:
             post.reactions.create(post=post, user=user, reaction_type=reaction_type)
-            return JsonResponse({"status":"success" ,"action":"increase","post_id":post.id})
+            return JsonResponse({"status":"success" ,"action":{"increase":reaction_type, "decrease":None},post_id:"post.id"})
 
 
 def CreateMedia(user,title,link,des):

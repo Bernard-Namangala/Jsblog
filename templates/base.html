@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
@@ -62,56 +61,12 @@
     />
 
     <link rel="stylesheet" href="{% static 'register/css/style.css' %}" />
-=======
-<!DOCTYPE HTML>
-{% load static %}
-<html lang="en">
-<head>
-	<title>{% block title %}
-
-	{% endblock %}</title>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="UTF-8">
-    <style>
-        {% block css %}
-
-        {% endblock %}
-    </style>
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-<!-- Google Fonts -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-<!-- Bootstrap core CSS -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
-<!-- Material Design Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/css/mdb.min.css" rel="stylesheet">
-	<!-- Font -->
-	<link href="https://fonts.googleapis.com/css?family=Encode+Sans+Expanded:400,600,700" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<!-- Stylesheets -->
-
-{#	<link href="{% static 'plugin-frameworks/bootstrap.css' %}s" rel="stylesheet">#}
-
-
-	<link href="{% static 'fonts/ionicons.css' %}" rel="stylesheet">
-
-	<link href="{% static 'common/styles.css' %}" rel="stylesheet">
-
-
-
-	<link rel="stylesheet" type="text/css" href="{% static 'register/css/sourcesanspro-font.css' %}">
-
-    <link rel="stylesheet" href="{% static 'register/css/style.css' %}"/>
->>>>>>> b0512edb09d9ac89c5e606827290d312bb392606
     <script src="{% static 'cke/ckeditor.js' %}"></script>
     <link
       rel="stylesheet"
       type="text/css"
       href="{% static 'css/index.css' %}"
     />
-<<<<<<< HEAD
   </head>
   <body>
     <header>
@@ -428,32 +383,26 @@
               reactions_holder = document.getElementById(
                 reactionType + "-reactions-count"
               );
-              reaction_counts = document.getElementsByClassName(
-                "reaction-count"
-              );
-
-              //  here i am clearing all the previous values in all reaction fields
-              // but what u will have to do is make another ajax request to get the count of
-              // all other reactions so that u fill them in
-              // or check if user is part of other reaction eg user clicks heart but he had
-              // previously (haha'd) you will have to reduce number of hahas and increase number of heart
-              for (reaction_count of reaction_counts) {
-                reaction_count.textContent = "(0)";
-              }
               // removing the ( ) from the text content of the count
-              const matches = reactions_holder.textContent.match(/(\d+)/);
 
-              if (reactions_holder !== null) {
-                if (data["action"] === "increase") {
-                  reactions_holder.textContent =
-                    "(" + (Number(matches[0]) + 1) + ")";
-                } else if (data["action"] === "decrease") {
-                  reactions_holder.textContent =
-                    "(" + (Number(matches[0]) - 1) + ")";
-                } else {
-                  reactions_holder.textContent =
-                    "(" + (Number(matches[0]) + 1) + ")";
-                }
+              if (data["action"]["increase"] !== null) {
+                let countToIncrease = document.getElementById(
+                  data["action"]["increase"] + "-reactions-count"
+                );
+                countToIncrease.textContent =
+                  "(" +
+                  (Number(countToIncrease.textContent.match(/(\d+)/)[0]) + 1) +
+                  ")";
+              }
+
+              if (data["action"]["decrease"] !== null) {
+                let countToDecrease = document.getElementById(
+                  data["action"]["decrease"] + "-reactions-count"
+                );
+                countToDecrease.textContent =
+                  "(" +
+                  (Number(countToDecrease.textContent.match(/(\d+)/)[0]) - 1) +
+                  ")";
               }
             },
             error: function (rs, e) {
@@ -465,270 +414,3 @@
     </script>
   </body>
 </html>
-=======
-
-
-
-
-
-
-
-</head>
-<body>
-
-	<header>
-		<div class="bg-191">
-			<div class="container">
-				<div class="oflow-hidden color-ash font-9 text-sm-center ptb-sm-5">
-
-					<ul class="float-left float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-10">
-						{% if user.is_authenticated %}
-                        <li><a class="pl-0 pl-sm-10">Welcome {{ request.user }}</a></li>
-                        {% else %}
-						<li><a class="pl-0 pl-sm-10">Welcome guest</a></li>
-                        {% endif %}
-
-
-					</ul>
-					<ul class="float-right float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-5">
-                        {% if user.is_authenticated %}
-						<li><a href="">Dashboard </a></li>
-						<li><a href="{% url 'logout' %}">Log out </a></li>
-                        {% else %}
-                        <li><a href="{% url 'signup' %}">Sign up</a></li>
-						<li><a href="{% url 'login' %}">Login </a></li>
-                        {% endif %}
-					</ul>
-
-				</div><!-- top-menu -->
-			</div><!-- container -->
-		</div><!-- bg-191 -->
-
-		<div class="container">
-			<a class="logo" href="{% url 'Mainhome' %}"><img src="{% static 'images/logo-black.png' %}" alt="Logo"></a>
-
-			<a class="right-area src-btn" href="#" >
-				<i class="active src-icn ion-search"></i>
-				<i class="close-icn ion-close"></i>
-			</a>
-			<div class="src-form">
-				<form>
-					<input type="text" placeholder="Search here">
-					<button type="submit"><i class="ion-search"></i></button>
-				</form>
-			</div><!-- src-form -->
-
-			<a class="menu-nav-icon" data-menu="#main-menu" href="#"><i class="ion-navicon"></i></a>
-
-			<ul class="main-menu" id="main-menu">
-				<li><a href="{% url 'mediahome' %}">MEDIA BLOG</a></li>
-				<li class="drop-down"><a href="mediadetails.html">GUIDES & ANALYTICS<i class="ion-arrow-down-b"></i></a>
-					<ul class="drop-down-menu drop-down-inner">
-						<li><a href="#">PAGE 1</a></li>
-						<li><a href="#">PAGE 2</a></li>
-					</ul>
-				</li>
-				<li><a href="04_FAQS.html">EVENTS</a></li>
-				<li><a href="05_FAQS-single.html">EXPLAINED</a></li>
-				<li><a href="06_contact-us.html">ICON CLAENDER</a></li>
-			</ul>
-			<div class="clearfix"></div>
-		</div><!-- container -->
-	</header>
-
-
-		<div class="col-md-12">
-            {% block content %}
-
-            {% endblock %}
-
-
-		</div><!-- container -->
-
-
-
-	<footer class="bg-191 color-ccc">
-
-		<div class="container">
-			<div class="pt-50 pb-20 pos-relative">
-				<div class="abs-tblr pt-50 z--1 text-center">
-					<div class="h-80 pos-relative"><img class="opacty-1 h-100 w-auto" src="{% static 'images/map.png' %}" alt=""></div>
-				</div>
-				<div class="row">
-
-					<div class="col-sm-4">
-						<div class="mb-30">
-							<a href="#"><img src="{% static 'images/logo-white.png' %}"></a>
-							<p class="mtb-20 color-ccc">Bit coin is an open-source, peer-to-peer, digital decentralized cryptocurrency.
-							Powered by blockchain technology, its defining characteristic is</p>
-							<p class="color-ash"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ion-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-</p>
-						</div><!-- mb-30 -->
-					</div><!-- col-md-4 -->
-
-					<div class="col-sm-4">
-						<div class="mb-30">
-							<h5 class="color-primary mb-20"><b>MOST POPULAR</b></h5>
-							<div class="mb-20">
-								<a class="color-white" href="#"><b>Its Make or Break Time for Bitcoin</b></a>
-								<h6 class="mt-10">Jan 25, 2018</h6>
-							</div>
-							<div class="brdr-ash-1 opacty-2 mr-30"></div>
-							<div class="mt-20">
-								<a class="color-white" href="#"><b>Bitcoin's roller coster ride is not over</b></a>
-								<h6 class="mt-10">Jan 25, 2018</h6>
-							</div>
-						</div><!-- mb-30 -->
-					</div><!-- col-md-4 -->
-
-					<div class="col-sm-4">
-						<div class="mb-30">
-							<h5 class="color-primary mb-20"><b>MOST POPULAR</b></h5>
-							<div class="mb-20">
-								<a class="color-white" href="#"><b>Its Make or Break Time for Bitcoin</b></a>
-								<h6 class="mt-10">Jan 25, 2018</h6>
-							</div>
-							<div class="brdr-ash-1 opacty-2 mr-30"></div>
-							<div class="mt-20">
-								<a class="color-white" href="#"><b>Bitcoin's roller coster ride is not over</b></a>
-								<h6 class="mt-10">Jan 25, 2018</h6>
-							</div>
-						</div><!-- mb-30 -->
-					</div><!-- col-md-4 -->
-
-				</div><!-- row -->
-			</div><!-- ptb-50 -->
-
-			<div class="brdr-ash-1 opacty-2"></div>
-
-			<div class="oflow-hidden color-ash font-9 text-sm-center ptb-sm-5">
-
-				<ul class="float-left float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-10">
-					<li><a class="pl-0 pl-sm-10" href="#">Terms & Conditions</a></li>
-					<li><a href="#">Privacy policy</a></li>
-					<li><a href="#">Jobs advertising</a></li>
-					<li><a href="#">Contact us</a></li>
-				</ul>
-				<ul class="float-right float-sm-none list-a-plr-10 list-a-plr-sm-5 list-a-ptb-15 list-a-ptb-sm-5">
-					<li><a class="pl-0 pl-sm-10" href="#"><i class="ion-social-facebook"></i></a></li>
-					<li><a href="#"><i class="ion-social-twitter"></i></a></li>
-					<li><a href="#"><i class="ion-social-google"></i></a></li>
-					<li><a href="#"><i class="ion-social-instagram"></i></a></li>
-					<li><a href="#"><i class="ion-social-bitcoin"></i></a></li>
-				</ul>
-
-			</div><!-- oflow-hidden -->
-		</div><!-- container -->
-	</footer>
-
-	<!-- SCIPTS -->
-
-	<script src="{% static 'plugin-frameworks/jquery-3.2.1.min.js' %}"></script>
-
-	<script src="{% static 'plugin-frameworks/tether.min.js' %}"></script>
-
-	<script src="{% static 'plugin-frameworks/bootstrap.js' %}"></script>
-
-	<script src="{% static 'common/scripts.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
-
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- Bootstrap tooltips -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-<!-- Bootstrap core JavaScript -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<!-- MDB core JavaScript -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/js/mdb.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function (event) {
-    $('.reply-btn').click(function () {
-    console.log("hi");
-    $(this).parent().parent().next('.replied-comments').fadeToggle();
-})
-
-    $(document).on('submit', '.comment-form', function (event) {
-        console.log("ok");
-       event.preventDefault();
-       $.ajax({
-          type : 'POST',
-          url : $(this).attr('action'),
-          data :$(this).serialize(),
-          dataType : 'json',
-          success : function (response) {
-            $('.main-comment-section').html(response['form']);
-            $('textarea').val('');
-                $('.reply-btn').click(function () {
-                $(this).parent().parent().next('.replied-comments').fadeToggle();
-                });
-                $('textarea').val('');
-
-          },
-           error : function (rs,e) {
-              console.log(rs.responseText);
-               
-           },
-           
-       });
-    });
-
-
-    $(document).on('submit', '.reply-form', function (event) {
-        console.log("ok");
-       event.preventDefault();
-       $.ajax({
-          type : 'POST',
-          url : $(this).attr('action'),
-          data :$(this).serialize(),
-          dataType : 'json',
-          success : function (response) {
-            $('.main-comment-section').html(response['form']);
-            $('textarea').val('');
-                $('.reply-btn').click(function () {
-                $(this).parent().parent().next('.replied-comments').fadeToggle();
-                });
-                $('textarea').val('');
-
-          },
-           error : function (rs,e) {
-              console.log(rs.responseText);
-
-           },
-
-       });
-    });
-
-    $(document).on('click','#like',function (event) {
-       event.preventDefault();
-       var pk = $(this).attr('value');
-       $.ajax({
-           type: 'POST',
-           url : '{% url "like_post" %}',
-           data : {'post_id':pk,'csrfmiddlewaretoken':'{{ csrf_token }}'},
-           dataType: 'json',
-           success : function (response) {
-               $('.f-reac').html(response['form'])
-    console.log(response)
-           },
-           error: function (rs,e) {
-               {#console.log(rs.responseText);#}
-console.log("error")
-           },
-       });
-    });
-
-
-
-
-
-
-})
-
-</script>
-
-</body>
-</html>
->>>>>>> b0512edb09d9ac89c5e606827290d312bb392606
