@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block css %}
+.postmedia{
+    margin:auto;
+    background:#bf9eaf14;
+    }
+{% endblock %}
+
+{% block title %}
+Media blog post
+{% endblock %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data" class="col-md-8 col-sm-12 postmedia px-sm-5 py-5 border mb-md-4" >{% csrf_token %}
+    <h3 class="text-primary border-bottom">Post Media </h3>
+                <div class="md-form mt-3">
+                <input type="text" name="title" class="form-control">
+                <label >Title</label>
+            </div>
+
+            <!-- E-mail -->
+            <div class="md-form">
+                <input type="url" name="link" class="form-control">
+                <label>Youtube Link</label>
+            </div>
+            <label>Description </label>
+            <textarea name="editor" id="editor" required>
+                this is a asample text
+            </textarea>
+            <div class="md-form">
+                <input type="submit" value="Post Media" class="btn btn-primary">
+            </div>
+
+
+
+
+    </form>
+<script type="text/javascript">
+
+	CKEDITOR.replace("editor")
+</script>
+{% endblock %}

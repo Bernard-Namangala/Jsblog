@@ -1,0 +1,40 @@
+
+                    <form class="comment-form form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white mb-md-50" action="{% url 'mediadetails' post.id %}" method="post">{% csrf_token %}
+						{{ comment_form  }}
+						<button class="btn-fill-primary plr-30"  type="submit"><b>LEAVE A COMMENT</b></button>
+					</form>
+					<h4 class="p-title mt-20"><b>{{ comments.count }} COMMENTS</b></h4>
+                    <div style="height: 400px;overflow: auto;">
+                    {% for comment in comments %}
+
+                        <blockquote class="blockquote">
+                        <p class="mb-0" style="font-size: 20px;">{{ comment.content }}</p>
+                        <footer class="blockquote-footer">by <cite title="Source Title" style="color: red">{{ comment.user|capfirst }}</cite><code>{{ comment.timestamp }}</code>
+                        <button type="submit" class="reply-btn btn btn-outline-dark btn-sm">Reply</button>
+                        </footer>
+                        </blockquote>
+
+                        <div class="replied-comments container mt-2" style="display: none">
+                        {% for reply in comment.replies.all %}
+                            <blockquote class="blockquote">
+                            <p class="mb-0" style="color: #0000cc;font-size: 15px;">{{ reply.content }}</p>
+                            <footer class="blockquote-footer">by <cite title="Source Title" style="color: #29b323">{{ reply.user|capfirst }}</cite>
+                            <code>{{ reply.timestamp }}</code>
+                            </footer>
+                            </blockquote>
+                        {% endfor %}
+
+                            <div class="form-group row ml-60 ">
+                                <form class="reply-form form-block form-plr-15 form-h-45 form-mb-20 form-brdr-lite-white mb-md-50"action="{% url 'mediadetails' post.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="comment_id" value="{{ comment.id }}">
+						{{ comment_form  }}
+						<button class="btn-fill-primary plr-30"  type="submit"><b>LEAVE A REPLY</b></button>
+					</form>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+                    </div>

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}
+Login page
+{% endblock %}
+
+{% block css %}
+.card{
+    margin:auto;
+    padding:30px;
+    background:black;
+    margin-bottom:30px;
+    }
+.md-form .form-control{
+    color:white;
+    }
+{% endblock %}
+
+{% block content %}
+
+ <!-- Material form login -->
+<div class="card col-md-5 bg-dark">
+
+  <h2 class="text-white text-md-center text-sm-center text-justify py-4">
+    <strong>Login Form</strong>
+  </h2>
+
+  <!--Card content-->
+  <div class="card-body px-lg-5 pt-0">
+
+    <!-- Form -->
+    <form class="text-center" style="color: #757575;" method="post">
+ {% csrf_token %}
+      <!-- Email -->
+      <div class="md-form">
+        <input type="text" name="username" style="color: white" class="form-control">
+        <label>E-mail / Username</label>
+      </div>
+
+      <!-- Password -->
+      <div class="md-form">
+        <input type="password" name="password" style="color: white"  class="form-control">
+        <label>Password</label>
+      </div>
+ <button class="btn btn-primary btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign in</button>
+      <div class="d-flex justify-content-around">
+        <div>
+          <!-- Forgot password -->
+          <p class="text-primary">Do you
+              <a  href="{% url 'password_reset' %}">Forgot password?</a>
+          </p>
+        </div>
+      </div>
+
+      <p class="text-primary">Not a member?
+        <a href="">Register</a>
+      </p>
+        {% if messages %}
+        {% for m in messages %}
+            <p class="text-center text-danger">{{ m }}</p>
+        {% endfor %}
+
+        {% endif %}
+
+
+    </form>
+    <!-- Form -->
+
+  </div>
+
+</div>
+<!-- Material form login -->
+{% endblock %}

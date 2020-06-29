@@ -1,0 +1,269 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+Signup page
+{% endblock %}
+{% block content %}
+     {% if messages %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+         {% for message in messages %}
+  <strong>{{ message}}</strong> You should try aging.
+        {% endfor %}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+      {% endif %}
+<body class="form-v8">
+	<div class="page-content " style="background: #ffffff">
+		<div class="form-v8-content">
+			<div class="form-right">
+				<div class="tab">
+					<div class="tab-inner">
+						<button class="tablinks" onclick="openCity(event, 'sign-up')" id="defaultOpen">Regular </button>
+					</div>
+					<div class="tab-inner">
+						<button class="tablinks" onclick="openCity(event, 'sign-in')">Organization</button>
+					</div>
+				</div>
+				<form class="form-detail"  action="{% url 'regular' %}" method="post" enctype="multipart/form-data" > {% csrf_token %}
+					<div class="tabcontent" id="sign-up">
+                                <div class="form-row">
+                                    <label class="form-row-inner">
+                                        <input type="text" name="username" id="username" class="input-text" required>
+                                        <span class="label">Username</span>
+                                        <span class="border"></span>
+                                    </label>
+                                </div>
+                                <div class="form-row">
+                                    <label class="form-row-inner">
+                                        <input type="text" name="email" id="email" class="input-text" required>
+                                        <span class="label">E-Mail</span>
+                                        <span class="border"></span>
+                                    </label>
+                                </div>
+                                <div class="form-row">
+                                        <div class="col">
+                                            <div class="form-row">
+                                            <label class="form-row-inner">
+                                                <input type="text" name="first_name" id="first_name" class="input-text" required>
+                                                <span class="label">First Name</span>
+                                                <span class="border"></span>
+                                            </label>
+                                        </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-row">
+                                            <label class="form-row-inner">
+                                                <input type="text" name="last_name" id="last_name" class="input-text" required>
+                                                <span class="label">Last Name</span>
+                                                <span class="border"></span>
+                                            </label>
+                                        </div>
+                                        </div>
+                                 </div>
+                                 <div class="form-row">
+                                        <div class="col">
+                                           <div class="form-row">
+                                                <label class="form-row-inner">
+                                                    <input type="password" name="password" id="password" class="input-text" required>
+                                                    <span class="label">Password</span>
+                                                    <span class="border"><code id="pass"></code></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                           <div class="form-row">
+                                                <label class="form-row-inner">
+                                                    <input type="password" name="comfirm_password" id="comfirm_password" class="input-text" required>
+                                                    <span class="label">Comfirm Password</span>
+                                                    <span class="border"></span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                 </div>
+                                <div class="form-row">
+                                        <div class="col">
+                                           <div class="form-row">
+                                                <label class="form-row-inner">
+                                                    <input type="url" name="facebook" id="facebook" class="input-text" required>
+                                                    <span class="label">Facebook id</span>
+                                                    <span class="border"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                           <div class="form-row">
+                                                <label class="form-row-inner">
+                                                    <input type="text" name="city" id="city" class="input-text" required>
+                                                    <span class="label">City Name</span>
+                                                    <span class="border"></span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+
+                                 </div>
+                                <div class="form-row">
+                                        <div class="col">
+                                           <div class="form-row">
+                                                <label class="form-row-inner">
+                                                    <input type="text" name="phone" id="phone" class="input-text" required>
+                                                    <span class="label">Phone</span>
+                                                    <span class="border"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                           <div class="form-row">
+                                                <label class="form-row-inner">
+                                                    <input type="file" name="photo" placeholder="Upload your photo" class="input-text" required>
+                                                    <span class="border"></span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+
+                                 </div>
+                                <div class="md-form">
+                                  <textarea  style="color:white;" name="about_you" class="md-textarea form-control" rows="3"></textarea>
+                                  <label style="color:white;">About yourself</label>
+                                </div>
+
+						<div class="form-row-last">
+							<input type="submit" name="register" class="register" value="Register">
+						</div>
+					</div>
+				</form>
+				<form class="form-detail" action="{% url 'organization' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+					<div class="tabcontent" id="sign-in">
+                                <div class="form-row">
+                                   <div class="col">
+                                           <div class="form-row">
+                                                <label class="form-row-inner">
+                                                    <input type="email" name="org_email"  class="input-text" required>
+                                                    <span class="label">E-mail</span>
+                                                    <span class="border"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                           <div class="form-row">
+                                                <label class="form-row-inner">
+                                                    <input type="text" name="org_name" id="city" class="input-text" required>
+                                                    <span class="label">Organization Name</span>
+                                                    <span class="border"></span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                </div>
+                                 <div class="form-row">
+                                        <div class="col">
+                                           <div class="form-row">
+                                                <label class="form-row-inner">
+                                                    <input type="password" name="password" id="password" class="input-text" required>
+                                                    <span class="label">Password</span>
+                                                    <span class="border"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                           <div class="form-row">
+                                                <label class="form-row-inner">
+                                                    <input type="password" name="comfirm_password" id="comfirm_password" class="input-text" required>
+                                                    <span class="label">Comfirm Password</span>
+                                                    <span class="border"></span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                 </div>
+                                <div class="form-row">
+                                        <div class="col">
+                                           <div class="form-row">
+                                                <label class="form-row-inner">
+                                                    <input type="url" name="website" id="website" class="input-text" required>
+                                                    <span class="label">Website</span>
+                                                    <span class="border"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                           <div class="form-row">
+                                                <label class="form-row-inner">
+                                                    <input type="text" name="org_city" id="org_city" class="input-text" required>
+                                                    <span class="label">City Name</span>
+                                                    <span class="border"></span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+
+                                 </div>
+                                <div class="form-row">
+                                        <div class="col">
+                                           <div class="form-row">
+                                                <label class="form-row-inner">
+                                                    <input type="text" name="org_phone" id="org_phone" class="input-text" required>
+                                                    <span class="label">Phone</span>
+                                                    <span class="border"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                         <div class="col">
+                                           <div class="form-row">
+                                                <label class="form-row-inner">
+                                                    <input type="text" name="org_address" id="org_address" class="input-text" required>
+                                                    <span class="label">Address</span>
+                                                    <span class="border"></span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+
+                                 </div>
+                                <div class="md-form">
+                                  <textarea  style="color:white;" name="purpose" class="md-textarea form-control" rows="3"></textarea>
+                                  <label style="color:white;">Purpose</label>
+                                </div>
+                                    <div class="form-row">
+                                                <label class="form-row-inner">
+                                                    <input type="file" name="org_photo"  class="input-text" required>
+                                                    <span class="label">Organization Logo</span>
+                                                    <span class="border"></span>
+                                                </label>
+                                    </div>
+
+						<div class="form-row-last">
+							<input type="submit" name="register" class="register" value="Sign up">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		function openCity(evt, cityName) {
+		    var i, tabcontent, tablinks;
+		    tabcontent = document.getElementsByClassName("tabcontent");
+		    for (i = 0; i < tabcontent.length; i++) {
+		        tabcontent[i].style.display = "none";
+		    }
+		    tablinks = document.getElementsByClassName("tablinks");
+		    for (i = 0; i < tablinks.length; i++) {
+		        tablinks[i].className = tablinks[i].className.replace(" active", "");
+		    }
+		    document.getElementById(cityName).style.display = "block";
+		    evt.currentTarget.className += " active";
+		}
+
+		// Get the element with id="defaultOpen" and click on it
+		document.getElementById("defaultOpen").click();
+	</script>
+
+{% endblock %}
